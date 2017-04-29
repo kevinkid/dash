@@ -1,4 +1,4 @@
-﻿// @Desc: Database operations logic .
+﻿// @desc: Database operations logic .
 
 module.exports = {
     

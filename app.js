@@ -23,7 +23,6 @@ DBConnection.setMaxListeners(0);
 var cors = require("cors");
 var conCounter = 0;
 
-
 // Port config 
 app.set('port', process.env.PORT || 3000);
 
@@ -50,10 +49,10 @@ signalR.hub('MyHub', {
 app.use(cors());
 
 // app config 
-app.use(require('stylus').middleware(path.join(__dirname, 'dash-frontend')));
-// app.use(favicon(__dirname + '/dash-frontend/img/favicon.ico'));
-app.use(express.static(path.join(__dirname, 'dash-frontend')));
-app.set('views', path.join(__dirname, 'dash-views'));
+app.use(require('stylus').middleware(path.join(__dirname, 'frontend')));
+// app.use(favicon(__dirname + '/frontend/img/favicon.ico'));
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

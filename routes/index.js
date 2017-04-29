@@ -13,16 +13,14 @@ var db = require("../Helpers/dbHelper.js");
 var subscription = {};
 var accountsFactory = require("../Handlers/AccountsFactory.js"); //@Todo : Use the account manager instead .
 
-
 router.get('/', function (req, res) {
-    res.redirect("/index.html");
+    res.redirect("./frontend/index.html");
 });
 
 ///  Microsoft signin route 
 router.get('/signin', function (req, res) {
     res.redirect(accountsFactory.getAuthUrl());
 });
-
 
 /// Install a client route 
 router.get('/callback', function (req, res) {
@@ -33,10 +31,54 @@ router.get('/callback', function (req, res) {
     //TODO: Also handle pre-exsisting accounts from here .
     //TODO: To verify the account of people find a way to keep
     // the email provided in cookies then embed it in the callback
-    var exist = accountsFactory.verifyAccount(req.query.email);
-    
-    if (!exist) {
 
+    // var exist = accountsFactory.verifyAccount(req.query.code);
+    
+    if (true) { // exist
+
+        var subscriptionId;
+        var subscriptionExpirationDateTime;
+        authHelper.getTokenFromCode(req.query.code, function (authenticationError, token) {
+            if (token) {
+                
+                // Expiration date 86400000 [ms] -eq 24hr 
+                subscriptionExpirationDateTime = new Date(Date.now() + 86400000).toISOString();//ISO time format 
+                subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime;
+                
+                api.postData(
+                    '/v1.0/subscriptions',
+                    token.accessToken,
+                    JSON.stringify(subscriptionConfiguration),
+                    function (requestError, subscriptionData) {
+                        if (subscriptionData !== null) {
+                            subscriptionData.userId = token.userId;
+                            subscriptionData.accessToken = token.accessToken;
+                            
+                            db.InstallClient(mongoose, qs.escape(JSON.stringify(subscriptionData)), subscriptionData.id, token, client, function (error) {
+                                if (error) {
+                                    subscriptionId = subscriptionData.id;
+                                    res.redirect(
+                                        '/dashboard.html?dbError=' + error + '&subscriptionId=' + subscriptionId +
+                                    '&userId=' + subscriptionData.userId + 'subObject={' + JSON.stringify(subscriptionData) + '}'
+                                    );
+                                } else {
+                                    subscriptionId = subscriptionData.id;
+                                    res.redirect(
+                                        '/dashboard.html?subscriptionId=' + subscriptionId +
+                                    '&userId=' + subscriptionData.userId + 'subObject={' + JSON.stringify(subscriptionData) + '}'
+                                    );
+                                }
+                            });
+                        
+                        } else if (requestError) {
+                            res.redirect("/index.html?Error=" + JSON.stringify(requestError));
+                        }
+                    }
+                );
+            } else if (authenticationError) {
+                res.status(500);
+            }
+        });
     } else {
         // TODO: Get the subscription id for the account 
         subscriptionId = subscriptionData.id;
@@ -45,51 +87,8 @@ router.get('/callback', function (req, res) {
         '&userId=' + subscriptionData.userId + 'subObject={' + JSON.stringify(subscriptionData) + '}'
         );
     }
-
-    var subscriptionId;
-    var subscriptionExpirationDateTime;
-    authHelper.getTokenFromCode(req.query.code, function (authenticationError, token) {
-        if (token) {
-            
-            // Expiration date 86400000 [ms] -eq 24hr 
-            subscriptionExpirationDateTime = new Date(Date.now() + 86400000).toISOString();//ISO time format 
-            subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime;
-            
-            api.postData(
-                '/v1.0/subscriptions',
-            token.accessToken,
-            JSON.stringify(subscriptionConfiguration),
-            function (requestError, subscriptionData) {
-                    if (subscriptionData !== null) {
-                        subscriptionData.userId = token.userId;
-                        subscriptionData.accessToken = token.accessToken;
-                        
-                        db.InstallClient(mongoose, qs.escape(JSON.stringify(subscriptionData)), subscriptionData.id, token, client, function (error) {
-                            if (error) {
-                                subscriptionId = subscriptionData.id;
-                                res.redirect(
-                                    '/dashboard.html?dbError=' + error + '&subscriptionId=' + subscriptionId +
-                                '&userId=' + subscriptionData.userId + 'subObject={' + JSON.stringify(subscriptionData) + '}'
-                                );
-                            } else {
-                                subscriptionId = subscriptionData.id;
-                                res.redirect(
-                                    '/dashboard.html?subscriptionId=' + subscriptionId +
-                                '&userId=' + subscriptionData.userId + 'subObject={' + JSON.stringify(subscriptionData) + '}'
-                                );
-                            }
-                        });
-                       
-                    } else if (requestError) {
-                        res.redirect("/index.html?Error=" + JSON.stringify(requestError));
-                    }
-                }
-            );
-        } else if (authenticationError) {
-            res.status(500);
-        }
-    });
 });
+
 
 
 

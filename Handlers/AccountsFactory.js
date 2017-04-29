@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 var db = require('../Helpers/dbHelper');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
@@ -6,6 +5,7 @@ var config = require('../api/config');
 var adalConfiguration = config.accounts.outlook.credentials;
 var resource = 'https://graph.microsoft.com/';
 var db = require('../Helpers/dbHelper');
+var client = require("../Handlers/client.js");
 
 function Query (email) {
     // TODO: query the database for the account 
@@ -36,17 +36,14 @@ function generateAuthURL (account) {
     }
 }
 
-
-
 /** @return {string} a fully formed uri with which authentication can be completed. */
 function getAuthUrl() {
-    return adalConfiguration.authUrl;
+    return adalConfiguration.authUrl;// outlook 
     // return adalConfiguration.authority + '/oauth2/authorize' +
     //                 '?client_id=' + adalConfiguration.clientID +
     //                     '&response_type=code' +
     //                 '&redirect_uri=' + adalConfiguration.redirectUri;
 }
-
 
 function getAuthenticationURL(accountType, clientkey) {
     if (!clientkey &&  accountType != null) {
@@ -63,8 +60,9 @@ function getAuthenticationURL(accountType, clientkey) {
 // TODO: Make sure the client set the clientkey on the browser for us to 
 //       query. That is if the clientkey exist .
 
+// @desc - Verify account by authcode to reduce the amount of request .
 function verifyAccount(clientkey) {
-    db.findClient(mongoose,{data: clientkey},clientkey,function(dbClient){
+    db.findClient(mongoose,clientkey, client,function(dbClient){
         if (dbClient == undefined){
             return false;
         } else {
@@ -72,8 +70,6 @@ function verifyAccount(clientkey) {
         }
     });
 }
-
-
 
 module.exports = {
     verifyAccount: verifyAccount,

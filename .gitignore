@@ -6,8 +6,8 @@ assets
 **.DS_Store*
 node_modules
 .DS_Store
-dash-frontend/img
-dash-frontend/fonts
+frontend/img
+frontend/fonts
 
 
 ## Ignore Visual Studio temporary files, build results, and
