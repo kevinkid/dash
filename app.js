@@ -51,7 +51,7 @@ app.use(cors());
 
 // app config 
 app.use(require('stylus').middleware(path.join(__dirname, 'dash-frontend')));
-app.use(favicon(__dirname + '/dash-frontend/img/favicon.ico'));
+// app.use(favicon(__dirname + '/dash-frontend/img/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'dash-frontend')));
 app.set('views', path.join(__dirname, 'dash-views'));
 app.set('view engine', 'jade');
