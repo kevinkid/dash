@@ -13,7 +13,7 @@ var signalR = signalr();
 var jsdom = require("jsdom-no-contextify");
 var message = require("./routes/message");
 var listen = require("./routes/listen");
-var routes = require("./routes/index");
+var login = require("./routes/index");
 var db = require("./Helpers/dbHelper");
 var client = require("./Handlers/client");
 var notifications = require("./Handlers/notifications");
@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({
 
 // Define routes 
 // TODO: Define better routes to handle advanced queries
-app.use('/', routes);
+app.use('/', login);
 app.use('/listen', listen);
 app.use('/message', message);
 

@@ -3,13 +3,13 @@ var mongoose = require('mongoose');
 var db = require('../Helpers/dbHelper');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
 var config = require('../api/config');
-var adalConfiguration = config.accounts.office.credentials;
+var adalConfiguration = config.accounts.outlook.credentials;
 var resource = 'https://graph.microsoft.com/';
 var db = require('../Helpers/dbHelper');
 
 function Query (email) {
     // TODO: query the database for the account 
-    db.findClient()
+    db.findClient();
 }
 
 // TODO: Include other accounts that are easier .
@@ -40,10 +40,11 @@ function generateAuthURL (account) {
 
 /** @return {string} a fully formed uri with which authentication can be completed. */
 function getAuthUrl() {
-    return adalConfiguration.authority + '/oauth2/authorize' +
-                    '?client_id=' + adalConfiguration.clientID +
-                        '&response_type=code' +
-                    '&redirect_uri=' + adalConfiguration.redirectUri;
+    return adalConfiguration.authUrl;
+    // return adalConfiguration.authority + '/oauth2/authorize' +
+    //                 '?client_id=' + adalConfiguration.clientID +
+    //                     '&response_type=code' +
+    //                 '&redirect_uri=' + adalConfiguration.redirectUri;
 }
 
 

@@ -39,7 +39,7 @@ module.exports = {
       }
     },
     "outlook": {
-      "credentails": {
+      "credentials": {
         "clientID": "35abf803-88f0-45fd-87a0-b4ff31069bd3",
         "privateKey": "fje6VcOvnP2y9z7DHU3XCQY",
         "redirectUris": ["https://dashdesk.azurewebsites.net/callback",
@@ -48,13 +48,15 @@ module.exports = {
         "authorize_endpoint": "/oauth2/v2.0/authorize",
         "token_endpoint": "/oauth2/v2.0/token",
         "scope": "User.Read Mail.Send offline_access",
-        "state": "cLIENTsTATEfORvALIDATION",
-        "authUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=35abf803-88f0-45fd-87a0-b4ff31069bd3&response_type=code&redirect_uri=https://dashdesk.azurewebsites.net/callback&scope=User.Read Mail.Send offline_access&response_mode=query&state=cLIENTsTATEfORvALIDATION",
+        "authUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=35abf803-88f0-45fd-87a0-b4ff31069bd3&response_type=code&redirect_uri=https://dashdesk.azurewebsites.net/callback&scope=User.Read Mail.Read Mail.Send offline_access&response_mode=query&state=cLIENTsTATEfORvALIDATION",
         
         "docs1": "https://developer.microsoft.com/en-us/graph/docs/authorization/auth_register_app_v2",
         "docs2": "https://msdn.microsoft.com/en-us/office/office365/api/mail-rest-operations",
         "docs3": "https://msdn.microsoft.com/office/office365/APi/notify-rest-operations#authentication",
-        "docs4": "https://dev.outlook.com/restapi/concepts/webhooks"
+        "docs4": "https://dev.outlook.com/restapi/concepts/webhooks",
+
+        "state": "cLIENTsTATEfORvALIDATION"
+        
       },
       "subscriptionConfiguration": {
         "resouce2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
