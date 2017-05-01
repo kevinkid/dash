@@ -4,7 +4,7 @@ var router = express.Router();
 var authContext = require("adal-node").AuthenticationContext;
 var authHelper = require('../api/auth.js');
 var api = require("../api/api.js");
-var subscriptionConfiguration = require("../api/config").accounts.office.subscriptionConfiguration;
+var subscriptionConfiguration = require("../api/config").accounts.outlook.subscriptionConfiguration;
 var https = require("https");
 var qs = require("querystring");
 var mongoose = require("mongoose");
@@ -51,15 +51,15 @@ router.get('/callback', function (req, res) {
                 
                 // Expiration date 86400000 [ms] -eq 24hr 
                 subscriptionExpirationDateTime = new Date(Date.now() + 86400000).toISOString();//ISO time format 
-                subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime; // office 
-                // subscriptionConfiguration.SubscriptionExpirationDateTime = subscriptionExpirationDateTime; // outlook 
+                // subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime; // office 
+                subscriptionConfiguration.SubscriptionExpirationDateTime = subscriptionExpirationDateTime; // outlook 
                 console.log("token gotten !");
                 console.dir(token);
 
                 //NOTE:  create mail webhook subscription .
                 api.postData(
                     '/v1.0/subscriptions',
-                    token.accessToken,
+                    token,
                     JSON.stringify(subscriptionConfiguration),
                     function (requestError, subscriptionData) {
                         if (subscriptionData !== null) {
