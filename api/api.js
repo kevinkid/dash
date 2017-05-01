@@ -61,10 +61,10 @@ module.exports = {
 
         ReqPayload = PostPayload;
 
-        // ReqPayload.expirationDateTime = data.expirationDateTime; // office 
+        ReqPayload.expirationDateTime = data.expirationDateTime; // office 
         // NOTE:  In the new doc the expiry date is not included . 
         // ReqPayload.SubscriptionExpirationDateTime = data.SubscriptionExpirationDateTime;  // outlook 
-
+        ReqPayload.expirationDateTime = data.SubscriptionExpirationDateTime;
         // TODO: Merge the two logic playing with the request payload .
 
         delete ReqPayload.host;

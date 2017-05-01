@@ -61,15 +61,24 @@ module.exports = {
         
       },
       "subscriptionConfiguration": {
-        "host": "https://outlook.office.com/",
-        "subscription_endpoint": "api/v2.0/me/subscriptions/",
+        // "host": "https://outlook.office.com/",
+        // "subscription_endpoint": "api/v2.0/me/subscriptions/",
+        // "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
+        // "resource3": "https://outlook.office.com/api/v2.0/me/events",
+        // "Resource": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
+        // "NotificationURL": "https://www.dash.azurewebsites.net/listen",
+        // "ChangeType": "Created, Updated",
+        // "ClientState": "cLIENTsTATEfORvALIDATION",
+        // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
+        "host": "https://graph.microsoft.com",
+        "subscription_endpoint": "/v1.0/subscriptions/",
         "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
         "resource3": "https://outlook.office.com/api/v2.0/me/events",
-        "Resource": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
-        "NotificationURL": "https://www.dash.azurewebsites.net/listen",
-        "ChangeType": "Created, Updated",
-        "ClientState": "cLIENTsTATEfORvALIDATION",
-        "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
+        "resource": "https://graph.microsoft.com/me/mailfolders('inbox')/messages",
+        "notificationUrl": "https://www.dash.azurewebsites.net/listen",
+        "changeType": "Created, Updated",
+        "clientState": "cLIENTsTATEfORvALIDATION",
+        // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
         
       }
     },
