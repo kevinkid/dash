@@ -1,13 +1,12 @@
 var https = require("https");
 var Host = "graph.microsoft.com";
 var config = require("../api/config");
-var PostPayload = config.accounts.office.subscriptionConfiguration;
+var PostPayload = config.accounts.outlook.subscriptionConfiguration;
 var middleware = require("../middleware/request"); /* TODO: Make sure that this middleware handles the webook logic implementation  */
 var AuthenticationContext = require("adal-node").AuthenticationContext;
-var resource = "https://graph.microsoft.com/";
+var resource = "https://graph.microsoft.com/"; // TODO: merge there configuration in the config.js file .
 
-
-var api = {
+module.exports = {
 
     generatePayload: function () {
 
@@ -21,7 +20,7 @@ var api = {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
-                "Content-Length": data.length
+                "Content-Length": (data.length+1)
             }
         };
 
@@ -42,31 +41,40 @@ var api = {
         });
     },
 
+    // subscription logic 
     postData : function (path, token, data, callback) {
-    ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
 
+        ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
         console.dir("Subscription post starting ");
-        
+                
         var ReqPayload = {};
         var options = {
-            host: Host,
-            path: path,
+            host: PostPayload.host,
+            path: PostPayload.subscription_endpoint,
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
-                "Content-Length": data.length
+                "Content-Length": JSON.stringify(data).length
             }
         };
-        
+
         ReqPayload = PostPayload;
-        ReqPayload.expirationDateTime = data.expirationDateTime;
-        
+
+        ReqPayload.expirationDateTime = data.expirationDateTime; // office 
+        // NOTE:  In the new doc the expiry date is not included . 
+        // ReqPayload.SubscriptionExpirationDateTime = data.SubscriptionExpirationDateTime;  // outlook 
+        ReqPayload.expirationDateTime = data.SubscriptionExpirationDateTime;
+        // TODO: Merge the two logic playing with the request payload .
+
+        delete ReqPayload.host;
+        delete ReqPayload.resource2;
+        delete ReqPayload.resource3;
+        delete ReqPayload.subscription_endpoint;
+
+
         console.dir("payload constructed.");
-        console.dir(data);
-        
-        console.dir("Token :");
-        console.dir(token);
+        console.dir(ReqPayload);
         
         var req = https.request(options, function (res) {
             var subscriptionData = "";
@@ -88,16 +96,15 @@ var api = {
             });
         });
         
-        var date = JSON.parse(data).expirationDateTime;
+        var date = ReqPayload.SubscriptionExpirationDateTime;
         
         console.dir("date is:");
         console.dir(date);
         
         // Serve payload 
-        // req.write("{\r\n  \"changeType\": \"Created\",\r\n  \"notificationUrl\": \"https://dash-heroku.heroku.com/listen\",\r\n  \"resource\": \"me/mailFolders("Inbox")messages\",\r\n  \"clientState\": \"cLIENTsTATEfORvALIDATION\",\r\n  \"expirationDateTime\":\""+date+"\"\r\n}");
-        req.write(data);
+        req.write(JSON.stringify(ReqPayload));
         req.end();
-        
+                
         req.on("error", function (error) {
             callback(error, null);
         });
@@ -175,4 +182,4 @@ var api = {
 };
 
 
-exports.api = api;
+

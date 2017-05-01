@@ -4,7 +4,8 @@ var router = express.Router();
 var authContext = require("adal-node").AuthenticationContext;
 var authHelper = require('../api/auth.js');
 var api = require("../api/api.js");
-var subscriptionConfiguration = require("../api/config").accounts.office.subscriptionConfiguration;
+var config = require("../api/config")
+var subscriptionConfiguration = config.accounts.outlook.subscriptionConfiguration;
 var https = require("https");
 var qs = require("querystring");
 var mongoose = require("mongoose");
@@ -46,17 +47,23 @@ router.get('/callback', function (req, res) {
 
         var subscriptionId;
         var subscriptionExpirationDateTime;
-        authHelper.getTokenFromCode(req.query.code, function (authenticationError, token) {
+        authHelper.getToken(req.query.code, function (authorizeError, token, refreshToken) {
             if (token) {
                 
                 // Expiration date 86400000 [ms] -eq 24hr 
                 subscriptionExpirationDateTime = new Date(Date.now() + 86400000).toISOString();//ISO time format 
-                subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime;
-                
+
+                // subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime; // office 
+                subscriptionConfiguration.SubscriptionExpirationDateTime = subscriptionExpirationDateTime; // outlook 
+
+                console.log("token gotten !");
+                console.dir(token);
+
+                //NOTE:  create mail webhook subscription .
                 api.postData(
                     '/v1.0/subscriptions',
-                    token.accessToken,
-                    JSON.stringify(subscriptionConfiguration),
+                    token,
+                    subscriptionConfiguration,
                     function (requestError, subscriptionData) {
                         if (subscriptionData !== null) {
                             subscriptionData.userId = token.userId;
@@ -77,14 +84,14 @@ router.get('/callback', function (req, res) {
                                     );
                                 }
                             });
-                        
                         } else if (requestError) {
                             res.redirect("/index.html?Error=" + JSON.stringify(requestError));
                         }
                     }
                 );
-            } else if (authenticationError) {
+            } else if (authorizeError) {
                 res.status(500);
+                res.redirect("/error.html?Error=" + authorizeError);
             }
         });
     } else {
@@ -96,10 +103,6 @@ router.get('/callback', function (req, res) {
         );
     }
 });
-
-
-
-
 
 /// Uninstalling an application using this route .
 router.get("/signout/:subscriptionId", function (req, res) {
@@ -119,8 +122,6 @@ router.get("/signout/:subscriptionId", function (req, res) {
     }
     res.redirect('https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=' + redirectUri);
 });
-
-
 
 
 module.exports = router;

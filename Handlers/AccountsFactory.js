@@ -7,6 +7,11 @@ var resource = 'https://graph.microsoft.com/';
 var db = require('../Helpers/dbHelper');
 var client = require("../Handlers/client.js");
 
+
+function create () {
+    // TODO: Create a new account .
+}
+
 function Query (email) {
     // TODO: query the database for the account 
     db.findClient();
@@ -71,7 +76,30 @@ function verifyAccount(clientkey) {
     });
 }
 
+// TODO: handle multiple account payloads from here .
+var outlookSubscriptionPayload = {},
+    officeSubscriptionPayload = {},
+    gmailSubscriptionPayload = {},
+    outlookAuthPayload = {},
+    officeAuthPayload = {},
+    gmailAuthPayload = {};
+
+
+
 module.exports = {
+    payload : {
+        subscriptions: {
+            outlook: outlookSubscriptionPayload,
+            office: officeSubscriptionPayload,
+            gamil: gmailSubscriptionPayload
+
+        },
+        authentication: {
+            outlook: outlookAuthPayload,
+            office: officeAuthPayload,
+            gmail: gmailAuthPayload
+        }
+    },
     verifyAccount: verifyAccount,
     getAuthenticationURL: getAuthenticationURL,
     getAuthUrl: getAuthUrl 

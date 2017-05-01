@@ -1,20 +1,12 @@
-var oauth = require('oauth');
+var Oauth = require('oauth');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
 var config = require('../api/config');
-var adalConfiguration = config.accounts.office.credentials;
+var credentials = config.accounts.outlook.credentials;
 var resource = 'https://graph.microsoft.com/';
 
 
-/**
- * Generate a fully formed uri to use for authentication based on the supplied resource argument
- * @return {string} a fully formed uri with which authentication can be completed.
- */
-function getAuthUrl() {
-    return adalConfiguration.authority + '/oauth2/authorize' +
-                    '?client_id=' + adalConfiguration.clientID +
-                        '&response_type=code' +
-                    '&redirect_uri=' + adalConfiguration.redirectUri;
-}
+
+// OFFICE 365 //
 
 /**
  * Gets a token for a given resource.
@@ -24,20 +16,20 @@ function getAuthUrl() {
  */
 function getTokenFromCode(code, callback) {
     var authContext = new AuthenticationContext(adalConfiguration.authority);
-    authContext.acquireTokenWithAuthorizationCode(
-        code,
-        adalConfiguration.redirectUrls[0],
-        resource,
-        adalConfiguration.clientID,
-        adalConfiguration.clientSecret,
-        function (error, token) {
-            if (error) {
-                callback(error, null);
-            } else {
-                callback(null, token);
+        authContext.acquireTokenWithAuthorizationCode(
+            code,
+            adalConfiguration.redirectUrls[0],
+            resource,
+            adalConfiguration.clientID,
+            adalConfiguration.clientSecret,
+            function (error, token) {
+                if (error) {
+                    callback(error, token);
+                } else {
+                    callback(token, token);
+                }
             }
-        }
-    );
+        );
 }
 
 /**
@@ -47,19 +39,66 @@ function getTokenFromCode(code, callback) {
  */
 function getTokenFromRefreshToken(refereshToken, callback) {
     var authContext = new AuthenticationContext(adalConfiguration.authority);
-    authContext.acquireTokenWithRefreshToken(
-        refereshToken,
-        adalConfiguration.redirectUri,
-        resource,
-        adalConfiguration.clientID,
-        adalConfiguration.clientSecret,
-        function (error, token) {
-            if (error) {
-                console.log("error Getting token from refereshToken .");
-                callback(error,null);
-            }else {
-                console.log("Succss getting access token .");
-                callback(null,token);
-            }
+        authContext.acquireTokenWithRefreshToken(
+            refereshToken,
+            adalConfiguration.redirectUri,
+            resource,
+            adalConfiguration.clientID,
+            adalConfiguration.clientSecret,
+            function (error, token) {
+                if (error) {
+                    console.log("error Getting token from refereshToken .");
+                    callback(error,null);
+                }else {
+                    console.log("Succss getting access token .");
+                    callback(null,token);
+                }
         })
 }
+
+
+
+
+// OUTLOOK //
+
+/**
+ * @param {string} - authentication code 
+ * @param {Function} - callback execution 
+ */
+function getToken (code, callback) {
+    var Oauth2 = Oauth.OAuth2;
+    var oauth = new Oauth2(
+        credentials.clientID,
+        credentials.clientSecret,
+        credentials.authority,
+        credentials.authorize_endpoint,
+        credentials.token_endpoint
+    );
+
+    oauth.getOAuthAccessToken(
+        code,
+        {
+            grant_type: 'authorization_code',
+            redirect_uri: credentials.redirectUrls[0],
+            response_mode: 'form_post',
+            nonce: 'h9-0845123n-480234980j1234098',
+            state: credentials.state
+        },
+        callback
+    );
+
+}
+
+
+// GMAIL //
+
+function _getToken (code, callback) {}
+
+module.exports = {
+    getToken: getToken,
+    getTokenFromCode: getTokenFromCode,
+    getTokenFromRefreshToken: getTokenFromRefreshToken
+}
+
+
+// TODO: create better nonce getToken:ln:68

@@ -33,7 +33,6 @@ app.locals.ENV_DEVELOPMENT = ENV === 'development';
 
 /**
  * @desc - signalr hub configuration .
- * @todo - Modularize this implementation 
  */
 signalR.serverProperties.ProtocolVersion = 1.3;
 app.use(signalR.createListener());

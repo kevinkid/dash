@@ -31,7 +31,7 @@ module.exports = {
           "redirectUri": "https://dashdesk.azurewebsites.net/callback"
       },
       "subscriptionConfiguration": {
-          "ChaneType": "Created, Updated",
+          "ChangeType": "Created, Updated",
           "notificationUrl": "https://dashdesk.azurewebsites.net/listen",
           "notificationUrl_old": "https://dashdesk.azurewebsites.net/listen",
           "resource": "me/mailfolders(\\'Inbox\\')/messages',",
@@ -41,13 +41,14 @@ module.exports = {
     "outlook": {
       "credentials": {
         "clientID": "35abf803-88f0-45fd-87a0-b4ff31069bd3",
-        "privateKey": "fje6VcOvnP2y9z7DHU3XCQY",
-        "redirectUrls": [ "https://dashdesk.azurewebsites.net/",
-                          "https://dashdesk.azurewebsites.net/callback",
-                           "https://dashdesk.azurewebsites.net/listen"],
-        "authority": "https://login.microsoftonline.com/common",
-        "authorize_endpoint": "/oauth2/v2.0/authorize",
-        "token_endpoint": "/oauth2/v2.0/token",
+        "clientSecret": "fje6VcOvnP2y9z7DHU3XCQY",
+        "redirectUrls": [ "https://dashdesk.azurewebsites.net/callback",
+                          "https://dashdesk.azurewebsites.net/",
+                          "https://dashdesk.azurewebsites.net/listen"],
+        "authority": "https://login.microsoftonline.com",
+        "host": "https://outlook.office.com/api/v2.0/me/subscriptions/",
+        "authorize_endpoint": "/common/oauth2/v2.0/authorize",
+        "token_endpoint": "/common/oauth2/v2.0/token",
         "scope": "User.Read Mail.Send offline_access",
         "authUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=35abf803-88f0-45fd-87a0-b4ff31069bd3&response_type=code&redirect_uri=https://dashdesk.azurewebsites.net/callback&scope=User.Read Mail.Read Mail.Send offline_access&response_mode=query&state=cLIENTsTATEfORvALIDATION",
         
@@ -60,13 +61,25 @@ module.exports = {
         
       },
       "subscriptionConfiguration": {
-        "resouce2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
-        "resouce": "https://outlook.office.com/api/v2.0/me/events",
-        "NotificationURL": "https://www.dash.azurewebsites.net/listen",
-        "ChaneType": "Created, Updated",
-        "state": "cLIENTsTATEfORvALIDATION",
+        // "host": "https://outlook.office.com/",
+        // "subscription_endpoint": "api/v2.0/me/subscriptions/",
+        // "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
+        // "resource3": "https://outlook.office.com/api/v2.0/me/events",
+        // "Resource": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
+        // "NotificationURL": "https://www.dash.azurewebsites.net/listen",
+        // "ChangeType": "Created, Updated",
+        // "ClientState": "cLIENTsTATEfORvALIDATION",
+        // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
+        "host": "https://graph.microsoft.com",
+        "subscription_endpoint": "/v1.0/subscriptions/",
+        "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
+        "resource3": "https://outlook.office.com/api/v2.0/me/events",
+        "resource": "https://graph.microsoft.com/me/mailfolders('inbox')/messages",
+        "notificationUrl": "https://www.dash.azurewebsites.net/listen",
+        "changeType": "Created, Updated",
+        "clientState": "cLIENTsTATEfORvALIDATION",
+        // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
         
-
       }
     },
       "gmail":{
