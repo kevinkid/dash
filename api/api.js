@@ -7,7 +7,7 @@ var AuthenticationContext = require("adal-node").AuthenticationContext;
 var resource = "https://graph.microsoft.com/";
 
 
-var api = {
+module.exports = {
 
     generatePayload: function () {
 
@@ -42,8 +42,9 @@ var api = {
         });
     },
 
+    // subscription logic 
     postData : function (path, token, data, callback) {
-    ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
+        ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
 
         console.dir("Subscription post starting ");
         
@@ -60,7 +61,8 @@ var api = {
         };
         
         ReqPayload = PostPayload;
-        ReqPayload.expirationDateTime = data.expirationDateTime;
+        ReqPayload.expirationDateTime = data.expirationDateTime; // office 
+        // ReqPayload.SubscriptionExpirationDateTime = data.SubscriptionExpirationDateTime;  // outlook 
         
         console.dir("payload constructed.");
         console.dir(data);
@@ -175,4 +177,4 @@ var api = {
 };
 
 
-exports.api = api;
+

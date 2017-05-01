@@ -46,6 +46,7 @@ module.exports = {
                           "https://dashdesk.azurewebsites.net/",
                           "https://dashdesk.azurewebsites.net/listen"],
         "authority": "https://login.microsoftonline.com/common",
+        "host": "https://outlook.office.com/api/v2.0/me/subscriptions/",
         "authorize_endpoint": "/oauth2/v2.0/authorize",
         "token_endpoint": "/oauth2/v2.0/token",
         "scope": "User.Read Mail.Send offline_access",
@@ -60,13 +61,14 @@ module.exports = {
         
       },
       "subscriptionConfiguration": {
+        "resouce": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
         "resouce2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
-        "resouce": "https://outlook.office.com/api/v2.0/me/events",
+        "resouce3": "https://outlook.office.com/api/v2.0/me/events",
         "NotificationURL": "https://www.dash.azurewebsites.net/listen",
         "ChaneType": "Created, Updated",
-        "state": "cLIENTsTATEfORvALIDATION",
+        "ClientState": "cLIENTsTATEfORvALIDATION",
         
-
+        
       }
     },
       "gmail":{
