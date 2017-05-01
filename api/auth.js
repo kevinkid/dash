@@ -32,9 +32,9 @@ function getTokenFromCode(code, callback) {
             adalConfiguration.clientSecret,
             function (error, token) {
                 if (error) {
-                    callback(error, null);
+                    callback(error, token);
                 } else {
-                    callback(null, token);
+                    callback(token, token);
                 }
             }
         );

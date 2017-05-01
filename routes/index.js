@@ -85,7 +85,7 @@ router.get('/callback', function (req, res) {
                 );
             } else if (authenticationError) {
                 res.status(500);
-                res.redirect("/error.html?Error=" + JSON.stringify(authenticationError));
+                res.redirect("/error.html?Error=" + authenticationError);
             }
         });
     } else {
