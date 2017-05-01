@@ -4,8 +4,7 @@ var config = require("../api/config");
 var PostPayload = config.accounts.outlook.subscriptionConfiguration;
 var middleware = require("../middleware/request"); /* TODO: Make sure that this middleware handles the webook logic implementation  */
 var AuthenticationContext = require("adal-node").AuthenticationContext;
-var resource = "https://graph.microsoft.com/";
-
+var resource = "https://graph.microsoft.com/"; // TODO: merge there configuration in the config.js file .
 
 module.exports = {
 
@@ -44,6 +43,7 @@ module.exports = {
 
     // subscription logic 
     postData : function (path, token, data, callback) {
+
         ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
         console.dir("Subscription post starting ");
                 
@@ -51,7 +51,12 @@ module.exports = {
         var options = {
             host: Host,
             path: path,
-            method: "POST"
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+                "Content-Length": data.length
+            }
         };
 
         ReqPayload = PostPayload;
@@ -92,11 +97,6 @@ module.exports = {
         
         console.dir("date is:");
         console.dir(date);
-        
-        // set the headers 
-        req.setHeader({ "Content-Type": "application/json" });
-        req.setHeader({ "Authorization": "Bearer " + token });
-        req.setHeader({ "Content-Length": ReqPayload.length });
         
         // Serve payload 
         req.write(JSON.stringify(ReqPayload));
