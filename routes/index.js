@@ -14,7 +14,15 @@ var subscription = {};
 var accountsFactory = require("../Handlers/AccountsFactory.js"); //@Todo : Use the account manager instead .
 
 router.get('/', function (req, res) {
-    res.redirect("./frontend/index.html");
+    if (req.body.subscriptionId) {
+        var subscriptionId = subscriptionData.id;
+        res.redirect(
+            '/dashboard.html?subscriptionId=' + subscriptionId +
+        '&userId=' + subscriptionData.userId + 'subObject={' + JSON.stringify(subscriptionData) + '}'
+        );
+    } else {
+        res.redirect("./frontend/index.html");
+    }
 });
 
 ///  Microsoft signin route 
@@ -98,7 +106,7 @@ router.get("/signout/:subscriptionId", function (req, res) {
     var redirectUri = req.protocal + "://" + req.hostname + ":" + req.app.settings.port;
     if (req.params.subscriptionId) {
         api.deleteData(
-            '/v1.0/subscriptons/' + req.params.subscriptonId,
+            '/v1.0/subscriptons/' + req.params.subscriptionId,
             function (err) {
                 if (!err) {
                     // @todo: Handle uninstalling of clients    

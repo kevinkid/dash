@@ -17,8 +17,8 @@ module.exports = {
         });
 
     },
-    InstallClient : function (mongoose, data, id, token, client, callback) {
         
+    InstallClient : function (mongoose, data, id, token, client, callback) {
         var newClient = new client({
             subscriptionId: id,
             accessToken: token,
@@ -35,8 +35,8 @@ module.exports = {
                 callback(error);
             }
         });
-
     },
+
     UpdateClient : function (mongoose, key, value, client, callback) {
         
         client.find({ key: value }, function (err, clientList) {
@@ -110,10 +110,10 @@ module.exports = {
         });
     },
     StoreNotification : function (mongoose, notification, client) {
+        
         var newNotifcation = new client({
             notificationDetails: [notification]
         });
-        
         newNotifcation.save(function (error) {
             if (!error) {
                 console.log("Success storing notification .");
