@@ -66,7 +66,7 @@ function getTokenFromRefreshToken(refereshToken, callback) {
  * @param {Function} - callback execution 
  */
 function getToken (code, callback) {
-    var Oauth2 = new Oauth.OAuth2;
+    var Oauth2 = Oauth.OAuth2;
     var oauth = new Oauth2(
         credentials.clientID,
         credentials.clientSecret,
