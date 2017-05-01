@@ -1,7 +1,7 @@
 var https = require("https");
 var Host = "graph.microsoft.com";
 var config = require("../api/config");
-var PostPayload = config.accounts.office.subscriptionConfiguration;
+var PostPayload = config.accounts.outlook.subscriptionConfiguration;
 var middleware = require("../middleware/request"); /* TODO: Make sure that this middleware handles the webook logic implementation  */
 var AuthenticationContext = require("adal-node").AuthenticationContext;
 var resource = "https://graph.microsoft.com/";
@@ -59,11 +59,15 @@ module.exports = {
                 "Content-Length": data.length
             }
         };
-        
+
         ReqPayload = PostPayload;
         ReqPayload.expirationDateTime = data.expirationDateTime; // office 
         // ReqPayload.SubscriptionExpirationDateTime = data.SubscriptionExpirationDateTime;  // outlook 
-        
+
+        delete ReqPayload.host;
+        delete ReqPayload.resource2;
+        delete ReqPayload.resource3;
+
         console.dir("payload constructed.");
         console.dir(data);
         

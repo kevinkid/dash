@@ -31,7 +31,7 @@ module.exports = {
           "redirectUri": "https://dashdesk.azurewebsites.net/callback"
       },
       "subscriptionConfiguration": {
-          "ChaneType": "Created, Updated",
+          "ChangeType": "Created, Updated",
           "notificationUrl": "https://dashdesk.azurewebsites.net/listen",
           "notificationUrl_old": "https://dashdesk.azurewebsites.net/listen",
           "resource": "me/mailfolders(\\'Inbox\\')/messages',",
@@ -61,13 +61,13 @@ module.exports = {
         
       },
       "subscriptionConfiguration": {
-        "resouce": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
+        "host": "https://outlook.office.com/api/v2.0/me/subscriptions/",
         "resouce2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
         "resouce3": "https://outlook.office.com/api/v2.0/me/events",
+        "Resouce": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
         "NotificationURL": "https://www.dash.azurewebsites.net/listen",
-        "ChaneType": "Created, Updated",
-        "ClientState": "cLIENTsTATEfORvALIDATION",
-        
+        "ChangeType": "Created, Updated",
+        "ClientState": "cLIENTsTATEfORvALIDATION"
         
       }
     },
