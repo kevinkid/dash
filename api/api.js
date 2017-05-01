@@ -51,12 +51,7 @@ module.exports = {
         var options = {
             host: Host,
             path: path,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token,
-                "Content-Length": ReqPayload.length
-            }
+            method: "POST"
         };
 
         ReqPayload = PostPayload;
@@ -98,13 +93,14 @@ module.exports = {
         console.dir("date is:");
         console.dir(date);
         
-        // Serve payload 
-        // req.write("{\r\n  \"changeType\": \"Created\",\r\n  \"notificationUrl\": \"https://dash-heroku.heroku.com/listen\",\r\n  \"resource\": \"me/mailFolders("Inbox")messages\",\r\n  \"clientState\": \"cLIENTsTATEfORvALIDATION\",\r\n  \"expirationDateTime\":\""+date+"\"\r\n}");
-        req.write(JSON.stringify(ReqPayload));
-        req.end();
+        // set the headers 
         req.setHeader({ "Content-Type": "application/json" });
         req.setHeader({ "Authorization": "Bearer " + token });
         req.setHeader({ "Content-Length": ReqPayload.length });
+        
+        // Serve payload 
+        req.write(JSON.stringify(ReqPayload));
+        req.end();
                 
         req.on("error", function (error) {
             callback(error, null);
