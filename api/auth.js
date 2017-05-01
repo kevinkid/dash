@@ -26,11 +26,11 @@ function getTokenFromCode(code, callback) {
     var authContext = new AuthenticationContext(adalConfiguration.authority);
     authContext.acquireTokenWithAuthorizationCode(
         code,
-    adalConfiguration.redirectUri,
-    resource,
-    adalConfiguration.clientID,
-    adalConfiguration.clientSecret,
-    function (error, token) {
+        adalConfiguration.redirectUrls[0],
+        resource,
+        adalConfiguration.clientID,
+        adalConfiguration.clientSecret,
+        function (error, token) {
             if (error) {
                 callback(error, null);
             } else {
