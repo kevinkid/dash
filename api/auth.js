@@ -65,7 +65,7 @@ function getTokenFromRefreshToken(refereshToken, callback) {
  * @param {string} - authentication code 
  * @param {Function} - callback execution 
  */
-function _getToken (code, callback) {
+function getToken (code, callback) {
     var Oauth2 = new Oauth.OAuth2;
     var oauth = new Oauth2(
         credentials.clientID,
@@ -91,7 +91,7 @@ function _getToken (code, callback) {
 
 // GMAIL //
 
-function getToken (code, callback) {
+function _getToken (code, callback) {
 
 
 
