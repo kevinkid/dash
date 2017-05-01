@@ -46,7 +46,7 @@ module.exports = {
     postData : function (path, token, data, callback) {
         ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
         console.dir("Subscription post starting ");
-        console.dir(token);
+       
         
         var ReqPayload = {};
         var options = {
@@ -63,9 +63,10 @@ module.exports = {
         ReqPayload = PostPayload;
 
         // ReqPayload.expirationDateTime = data.expirationDateTime; // office 
-        ReqPayload.SubscriptionExpirationDateTime = JSON.parse(data.SubscriptionExpirationDateTime);  // outlook 
+        ReqPayload.SubscriptionExpirationDateTime = data.SubscriptionExpirationDateTime;  // outlook 
+
         // TODO: Merge the two logic playing with the request payload .
-        
+
         delete ReqPayload.host;
         delete ReqPayload.resource2;
         delete ReqPayload.resource3;

@@ -63,7 +63,7 @@ router.get('/callback', function (req, res) {
                 api.postData(
                     '/v1.0/subscriptions',
                     token,
-                    JSON.stringify(subscriptionConfiguration),
+                    subscriptionConfiguration,
                     function (requestError, subscriptionData) {
                         if (subscriptionData !== null) {
                             subscriptionData.userId = token.userId;
