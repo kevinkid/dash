@@ -51,8 +51,10 @@ router.get('/callback', function (req, res) {
                 
                 // Expiration date 86400000 [ms] -eq 24hr 
                 subscriptionExpirationDateTime = new Date(Date.now() + 86400000).toISOString();//ISO time format 
+                
                 // subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime; // office 
                 subscriptionConfiguration.SubscriptionExpirationDateTime = subscriptionExpirationDateTime; // outlook 
+
                 console.log("token gotten !");
                 console.dir(token);
 

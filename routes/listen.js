@@ -9,7 +9,7 @@ var api = require('../api/api.js');
 var http = require('http');
 var qs = require("querystring");
 var config = require('../api/config');
-var clientStateValueExpected = config.accounts.office.subscriptionConfiguration.clientState;
+var expectedClientState = config.accounts.office.subscriptionConfiguration.clientState;
 var mongoose = require("mongoose");
 var db = require("../Helpers/dbHelper.js");
 var client = require("../Handlers/client.js");
@@ -28,6 +28,7 @@ router.post('/', function (req, res, next) {
     var subscriptionId;
     
     if (req.query.validationToken) {
+        console.dir('Subscription validation !');
 
         res.send(req.query.validationToken);
         res.status(200);
@@ -35,6 +36,8 @@ router.post('/', function (req, res, next) {
         
     } else {
         
+        console.dir('Subscription notification !');
+
         status = 202;
 
         // Process notifications 
@@ -47,7 +50,7 @@ router.post('/', function (req, res, next) {
 
             if ((req.body.value[i].changeType === "created" ||
                 req.body.value[i].changeType === "updated") &&
-                req.body.value[i].clientState !== clientStateValueExpected) {
+                req.body.value[i].clientState !== expectedClientState) {
                 
                 processNotification(subscriptionId, resource, res, next);
 
@@ -55,9 +58,7 @@ router.post('/', function (req, res, next) {
         }
         
         // Send a status of 'Accepted'
-        status = 202;
         res.status(status);
-
     }
     res.status(status).end(http.STATUS_CODES[status]);
 });
