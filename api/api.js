@@ -72,6 +72,7 @@ module.exports = {
         delete ReqPayload.resource3;
         delete ReqPayload.subscription_endpoint;
 
+
         console.dir("payload constructed.");
         console.dir(ReqPayload);
         
