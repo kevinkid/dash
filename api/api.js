@@ -95,7 +95,7 @@ module.exports = {
             });
         });
         
-        var date = JSON.parse(ReqPayload).SubscriptionExpirationDateTime;
+        var date = ReqPayload.SubscriptionExpirationDateTime;
         
         console.dir("date is:");
         console.dir(date);
