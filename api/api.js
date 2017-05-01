@@ -63,17 +63,15 @@ module.exports = {
         ReqPayload = PostPayload;
 
         // ReqPayload.expirationDateTime = data.expirationDateTime; // office 
-        ReqPayload.SubscriptionExpirationDateTime = data.SubscriptionExpirationDateTime;  // outlook 
-
+        ReqPayload.SubscriptionExpirationDateTime = JSON.parse(data.SubscriptionExpirationDateTime);  // outlook 
+        // TODO: Merge the two logic playing with the request payload .
+        
         delete ReqPayload.host;
         delete ReqPayload.resource2;
         delete ReqPayload.resource3;
 
         console.dir("payload constructed.");
         console.dir(ReqPayload);
-        
-        console.dir("Token :");
-        console.dir(token);
         
         var req = https.request(options, function (res) {
             var subscriptionData = "";
