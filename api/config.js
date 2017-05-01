@@ -67,7 +67,8 @@ module.exports = {
         "Resouce": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
         "NotificationURL": "https://www.dash.azurewebsites.net/listen",
         "ChangeType": "Created, Updated",
-        "ClientState": "cLIENTsTATEfORvALIDATION"
+        "ClientState": "cLIENTsTATEfORvALIDATION",
+        "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
         
       }
     },
