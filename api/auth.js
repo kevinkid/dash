@@ -75,13 +75,14 @@ function getToken (code, callback) {
         credentials.token_endpoint
     );
 
-    oauth.getOauthAccessToken(
+    oauth.getOAuthAccessToken(
         code,
         {
             grant_type: 'authorization_code',
             redirect_uri: credentials.redirectUrls[0],
             response_mode: 'form_post',
-            state: 'asdf'
+            nonce: 'h9-0845123n-480234980j1234098',
+            state: credentials.state
         },
         callback
     );
@@ -91,16 +92,13 @@ function getToken (code, callback) {
 
 // GMAIL //
 
-function _getToken (code, callback) {
-
-
-
-}
-
-
+function _getToken (code, callback) {}
 
 module.exports = {
     getToken: getToken,
     getTokenFromCode: getTokenFromCode,
     getTokenFromRefreshToken: getTokenFromRefreshToken
 }
+
+
+// TODO: create better nonce getToken:ln:68
