@@ -20,7 +20,7 @@ module.exports = {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
-                "Content-Length": data.length
+                "Content-Length": (data.length+1)
             }
         };
 
@@ -55,7 +55,7 @@ module.exports = {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
-                "Content-Length": data.length
+                "Content-Length": JSON.stringify(data).length
             }
         };
 
