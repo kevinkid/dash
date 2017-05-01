@@ -70,7 +70,7 @@ module.exports = {
         delete ReqPayload.resource3;
 
         console.dir("payload constructed.");
-        console.dir(data);
+        console.dir(ReqPayload);
         
         console.dir("Token :");
         console.dir(token);
@@ -95,14 +95,14 @@ module.exports = {
             });
         });
         
-        var date = JSON.parse(data).expirationDateTime;
+        var date = JSON.parse(ReqPayload).SubscriptionExpirationDateTime;
         
         console.dir("date is:");
         console.dir(date);
         
         // Serve payload 
         // req.write("{\r\n  \"changeType\": \"Created\",\r\n  \"notificationUrl\": \"https://dash-heroku.heroku.com/listen\",\r\n  \"resource\": \"me/mailFolders("Inbox")messages\",\r\n  \"clientState\": \"cLIENTsTATEfORvALIDATION\",\r\n  \"expirationDateTime\":\""+date+"\"\r\n}");
-        req.write(data);
+        req.write(JSON.stringify(ReqPayload));
         req.end();
         
         req.on("error", function (error) {

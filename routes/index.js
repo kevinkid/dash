@@ -4,7 +4,8 @@ var router = express.Router();
 var authContext = require("adal-node").AuthenticationContext;
 var authHelper = require('../api/auth.js');
 var api = require("../api/api.js");
-var subscriptionConfiguration = require("../api/config").accounts.outlook.subscriptionConfiguration;
+var config = require("../api/config")
+var subscriptionConfiguration = config.accounts.outlook.subscriptionConfiguration;
 var https = require("https");
 var qs = require("querystring");
 var mongoose = require("mongoose");
@@ -51,7 +52,7 @@ router.get('/callback', function (req, res) {
                 
                 // Expiration date 86400000 [ms] -eq 24hr 
                 subscriptionExpirationDateTime = new Date(Date.now() + 86400000).toISOString();//ISO time format 
-                
+
                 // subscriptionConfiguration.expirationDateTime = subscriptionExpirationDateTime; // office 
                 subscriptionConfiguration.SubscriptionExpirationDateTime = subscriptionExpirationDateTime; // outlook 
 
