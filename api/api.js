@@ -49,8 +49,8 @@ module.exports = {
                 
         var ReqPayload = {};
         var options = {
-            host: Host,
-            path: path,
+            host: PostPayload.host,
+            path: PostPayload.subscription_endpoint,
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
