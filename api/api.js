@@ -46,8 +46,7 @@ module.exports = {
     postData : function (path, token, data, callback) {
         ///NOTE: Handle the request using the handleRequest method above instead of repeating yourself .
         console.dir("Subscription post starting ");
-       
-        
+                
         var ReqPayload = {};
         var options = {
             host: Host,
@@ -56,7 +55,7 @@ module.exports = {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
-                "Content-Length": data.length
+                "Content-Length": ReqPayload.length
             }
         };
 
@@ -103,7 +102,10 @@ module.exports = {
         // req.write("{\r\n  \"changeType\": \"Created\",\r\n  \"notificationUrl\": \"https://dash-heroku.heroku.com/listen\",\r\n  \"resource\": \"me/mailFolders("Inbox")messages\",\r\n  \"clientState\": \"cLIENTsTATEfORvALIDATION\",\r\n  \"expirationDateTime\":\""+date+"\"\r\n}");
         req.write(JSON.stringify(ReqPayload));
         req.end();
-        
+        req.setHeader({ "Content-Type": "application/json" });
+        req.setHeader({ "Authorization": "Bearer " + token });
+        req.setHeader({ "Content-Length": ReqPayload.length });
+                
         req.on("error", function (error) {
             callback(error, null);
         });

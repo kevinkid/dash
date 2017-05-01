@@ -62,8 +62,8 @@ module.exports = {
       },
       "subscriptionConfiguration": {
         "host": "https://outlook.office.com/api/v2.0/me/subscriptions/",
-        "resouce2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
-        "resouce3": "https://outlook.office.com/api/v2.0/me/events",
+        "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
+        "resource3": "https://outlook.office.com/api/v2.0/me/events",
         "Resouce": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
         "NotificationURL": "https://www.dash.azurewebsites.net/listen",
         "ChangeType": "Created, Updated",
