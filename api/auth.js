@@ -1,20 +1,12 @@
-var oauth = require('oauth');
+var Oauth = require('oauth');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
 var config = require('../api/config');
-var adalConfiguration = config.accounts.outlook.credentials;
+var credentials = config.accounts.outlook.credentials;
 var resource = 'https://graph.microsoft.com/';
 
 
-/**
- * Generate a fully formed uri to use for authentication based on the supplied resource argument
- * @return {string} a fully formed uri with which authentication can be completed.
- */
-function getAuthUrl() {
-    return adalConfiguration.authority + '/oauth2/authorize' +
-                    '?client_id=' + adalConfiguration.clientID +
-                        '&response_type=code' +
-                    '&redirect_uri=' + adalConfiguration.redirectUri;
-}
+
+// OFFICE 365 //
 
 /**
  * Gets a token for a given resource.
@@ -64,8 +56,51 @@ function getTokenFromRefreshToken(refereshToken, callback) {
         })
 }
 
+
+
+
+// OUTLOOK //
+
+/**
+ * @param {string} - authentication code 
+ * @param {Function} - callback execution 
+ */
+function _getToken (code, callback) {
+    var Oauth2 = new Oauth.OAuth2;
+    var oauth = new Oauth2(
+        credentials.clientID,
+        credentials.clientSecret,
+        credentials.authority,
+        credentials.authorize_endpoint,
+        credentials.token_endpoint
+    );
+
+    oauth.getOauthAccessToken(
+        code,
+        {
+            grant_type: 'authorization_code',
+            redirect_uri: credentials.redirectUrls[0],
+            response_mode: 'form_post',
+            state: 'asdf'
+        },
+        callback
+    );
+
+}
+
+
+// GMAIL //
+
+function getToken (code, callback) {
+
+
+
+}
+
+
+
 module.exports = {
+    getToken: getToken,
     getTokenFromCode: getTokenFromCode,
-    getTokenFromRefreshToken: getTokenFromRefreshToken,
-    getAuthUrl: getAuthUrl
+    getTokenFromRefreshToken: getTokenFromRefreshToken
 }

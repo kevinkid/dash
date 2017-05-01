@@ -46,7 +46,7 @@ router.get('/callback', function (req, res) {
 
         var subscriptionId;
         var subscriptionExpirationDateTime;
-        authHelper.getTokenFromCode(req.query.code, function (authenticationError, token) {
+        authHelper.getToken(req.query.code, function (authorizeError, token, refreshToken) {
             if (token) {
                 
                 // Expiration date 86400000 [ms] -eq 24hr 
@@ -55,7 +55,8 @@ router.get('/callback', function (req, res) {
                 // subscriptionConfiguration.SubscriptionExpirationDateTime = subscriptionExpirationDateTime; // outlook 
                 console.log("token gotten !");
                 console.dir(token);
-                
+
+                //NOTE:  create mail webhook subscription .
                 api.postData(
                     '/v1.0/subscriptions',
                     token.accessToken,
@@ -80,15 +81,14 @@ router.get('/callback', function (req, res) {
                                     );
                                 }
                             });
-                        
                         } else if (requestError) {
                             res.redirect("/index.html?Error=" + JSON.stringify(requestError));
                         }
                     }
                 );
-            } else if (authenticationError) {
+            } else if (authorizeError) {
                 res.status(500);
-                res.redirect("/error.html?Error=" + authenticationError);
+                res.redirect("/error.html?Error=" + authorizeError);
             }
         });
     } else {

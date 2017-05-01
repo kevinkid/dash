@@ -45,10 +45,10 @@ module.exports = {
         "redirectUrls": [ "https://dashdesk.azurewebsites.net/callback",
                           "https://dashdesk.azurewebsites.net/",
                           "https://dashdesk.azurewebsites.net/listen"],
-        "authority": "https://login.microsoftonline.com/common",
+        "authority": "https://login.microsoftonline.com",
         "host": "https://outlook.office.com/api/v2.0/me/subscriptions/",
-        "authorize_endpoint": "/oauth2/v2.0/authorize",
-        "token_endpoint": "/oauth2/v2.0/token",
+        "authorize_endpoint": "common/oauth2/v2.0/authorize",
+        "token_endpoint": "common/oauth2/v2.0/token",
         "scope": "User.Read Mail.Send offline_access",
         "authUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=35abf803-88f0-45fd-87a0-b4ff31069bd3&response_type=code&redirect_uri=https://dashdesk.azurewebsites.net/callback&scope=User.Read Mail.Read Mail.Send offline_access&response_mode=query&state=cLIENTsTATEfORvALIDATION",
         
@@ -60,7 +60,7 @@ module.exports = {
         "state": "cLIENTsTATEfORvALIDATION"
         
       },
-      "subscriptionConfiguration": {
+      "authConfiguration": {
         "host": "https://outlook.office.com/api/v2.0/me/subscriptions/",
         "resouce2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
         "resouce3": "https://outlook.office.com/api/v2.0/me/events",

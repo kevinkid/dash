@@ -1,6 +1,6 @@
 {
   "name": "dashdesk",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "description": "Backend for a windows/mac/linux client desktop widget",
   "private": false,
   "author": {
