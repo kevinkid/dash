@@ -24,20 +24,20 @@ function getAuthUrl() {
  */
 function getTokenFromCode(code, callback) {
     var authContext = new AuthenticationContext(adalConfiguration.authority);
-    authContext.acquireTokenWithAuthorizationCode(
-        code,
-        adalConfiguration.redirectUrls[0],
-        resource,
-        adalConfiguration.clientID,
-        adalConfiguration.clientSecret,
-        function (error, token) {
-            if (error) {
-                callback(error, null);
-            } else {
-                callback(null, token);
+        authContext.acquireTokenWithAuthorizationCode(
+            code,
+            adalConfiguration.redirectUrls[0],
+            resource,
+            adalConfiguration.clientID,
+            adalConfiguration.clientSecret,
+            function (error, token) {
+                if (error) {
+                    callback(error, null);
+                } else {
+                    callback(null, token);
+                }
             }
-        }
-    );
+        );
 }
 
 /**
@@ -47,19 +47,25 @@ function getTokenFromCode(code, callback) {
  */
 function getTokenFromRefreshToken(refereshToken, callback) {
     var authContext = new AuthenticationContext(adalConfiguration.authority);
-    authContext.acquireTokenWithRefreshToken(
-        refereshToken,
-        adalConfiguration.redirectUri,
-        resource,
-        adalConfiguration.clientID,
-        adalConfiguration.clientSecret,
-        function (error, token) {
-            if (error) {
-                console.log("error Getting token from refereshToken .");
-                callback(error,null);
-            }else {
-                console.log("Succss getting access token .");
-                callback(null,token);
-            }
+        authContext.acquireTokenWithRefreshToken(
+            refereshToken,
+            adalConfiguration.redirectUri,
+            resource,
+            adalConfiguration.clientID,
+            adalConfiguration.clientSecret,
+            function (error, token) {
+                if (error) {
+                    console.log("error Getting token from refereshToken .");
+                    callback(error,null);
+                }else {
+                    console.log("Succss getting access token .");
+                    callback(null,token);
+                }
         })
+}
+
+module.exports = {
+    getTokenFromCode: getTokenFromCode,
+    getTokenFromRefreshToken: getTokenFromRefreshToken,
+    getAuthUrl: getAuthUrl
 }

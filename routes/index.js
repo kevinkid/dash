@@ -85,6 +85,7 @@ router.get('/callback', function (req, res) {
                 );
             } else if (authenticationError) {
                 res.status(500);
+                res.redirect("/error.html?Error=" + JSON.stringify(authenticationError));
             }
         });
     } else {
@@ -96,10 +97,6 @@ router.get('/callback', function (req, res) {
         );
     }
 });
-
-
-
-
 
 /// Uninstalling an application using this route .
 router.get("/signout/:subscriptionId", function (req, res) {
@@ -119,8 +116,6 @@ router.get("/signout/:subscriptionId", function (req, res) {
     }
     res.redirect('https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=' + redirectUri);
 });
-
-
 
 
 module.exports = router;
