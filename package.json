@@ -7,7 +7,7 @@
     "email": "bigevin2682@gmail.com"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "npm link ../modules/signalrjs --verbose & node app.js",
     "test": "gulp run"
   },
   "keywords": [
