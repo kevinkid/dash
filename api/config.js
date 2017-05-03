@@ -61,6 +61,7 @@ module.exports = {
         
       },
       "subscriptionConfiguration": {
+        // todo: use node http to simulate a client for the node-outlook client .
         "host": "https://graph.microsoft.com",
         "subscription_endpoint": "/v1.0/subscriptions/",
         "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
@@ -69,11 +70,11 @@ module.exports = {
         "notificationUrl": "https://www.dash.azurewebsites.net/listen",
         "changeType": "Created, Updated",
         "clientState": "cLIENTsTATEfORvALIDATION",
-        // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
+        "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
 
       }
     },
-      "gmail":{
+      "gmail": {
         "credentials": {
           "authUrl": "https://dashdesk.azurewebsites.net/auth/gmail",
           "clientID": "174293665341-aii1tth8tv3r706222ang4bfqajgma2f.apps.googleusercontent.com",

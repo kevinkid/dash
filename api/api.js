@@ -71,7 +71,7 @@ module.exports = {
         delete ReqPayload.resource2;
         delete ReqPayload.resource3;
         delete ReqPayload.subscription_endpoint;
-
+        delete ReqPayload["@odata.type"];
 
         console.dir("payload constructed.");
         console.dir(ReqPayload);

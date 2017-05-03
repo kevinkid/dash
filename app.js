@@ -26,14 +26,13 @@ var conCounter = 0;
 // Port config 
 app.set('port', process.env.PORT || 3000);
 
-// Environment config 
+// Environment
 var ENV = process.env.NODE_ENV || 'development';
 app.locals.ENV = ENV;
 app.locals.ENV_DEVELOPMENT = ENV === 'development';
 
-/**
- * @desc - signalr hub configuration .
- */
+
+/** @desc - signalr hub configuration . */
 signalR.serverProperties.ProtocolVersion = 1.3;
 app.use(signalR.createListener());
 console.dir("Protocal v:" + signalR.serverProperties.ProtocolVersion);// remove me 
@@ -58,11 +57,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
 // Define routes 
-// TODO: Define better routes to handle advanced queries
 app.use('/', login);
 app.use('/listen', listen);
 app.use('/message', message);
+
 
 // Db config 
 var DBoptions = {
@@ -76,11 +76,32 @@ DBConnection.on('error', function() {
     mongoose.disconnect();
 });
 
-// TODO: See nodejs error object, write better errors.
+// Log errors to better manage the application lifecycle .
+process.on("uncaughtException", function (ex) {
+    var date = new Date();
+    fs.exists("../log.txt", function (exist) {
+        if (!exist) {
+            fs.writeFile("../log.txt", `Error : ${date} : ${ex} \n`, function (er, data) {
+                if  (er) {
+                    console.error("Error logging to file.");
+                }
+                    console.error(ex);
+            });
+        } else {
+            fs.appendFile("../log.txt", `Error : ${date} : ${ex} \n`,
+             function (errr) {
+                if  (errr) {
+                    console.error(errr);
+                }
+                    console.error(ex);
+            });
+        }
+    });
+});
+
 DBConnection.on('disconnected', function(err) {
-    if (conCounter>5) throw new Error({ message: "Database connection failure "
-                                        , dbURI: config.database[ ENV ].host
-                                        , DB: config.database[ ENV ] });
+    if (conCounter>5)  throw new Error("Database Connection Error");
+    
     mongoose.connect((config.database[ ENV ]).host, DBoptions);
     conCounter++;
 });
