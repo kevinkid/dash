@@ -49,7 +49,7 @@ app.use(cors());
 
 // app config 
 app.use(require('stylus').middleware(path.join(__dirname, 'frontend')));
-// app.use(favicon(__dirname + '/frontend/img/favicon.ico'));
+app.use(favicon(__dirname + '/frontend/img/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'frontend')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

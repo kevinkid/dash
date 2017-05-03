@@ -61,15 +61,6 @@ module.exports = {
         
       },
       "subscriptionConfiguration": {
-        // "host": "https://outlook.office.com/",
-        // "subscription_endpoint": "api/v2.0/me/subscriptions/",
-        // "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
-        // "resource3": "https://outlook.office.com/api/v2.0/me/events",
-        // "Resource": "https://outlook.office.com/api/v2.0/me/mailfolder('inbox')/messages",
-        // "NotificationURL": "https://www.dash.azurewebsites.net/listen",
-        // "ChangeType": "Created, Updated",
-        // "ClientState": "cLIENTsTATEfORvALIDATION",
-        // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
         "host": "https://graph.microsoft.com",
         "subscription_endpoint": "/v1.0/subscriptions/",
         "resource2": "https://outlook.office.com/api/v2.0/me/mailfolders('Drafts')/messages?$filter=HasAttachments%20eq%20true%20AND%20Importance%20eq%20%27High%27",
@@ -79,16 +70,18 @@ module.exports = {
         "changeType": "Created, Updated",
         "clientState": "cLIENTsTATEfORvALIDATION",
         // "@odata.type": "#Microsoft.OutlookServices.PushSubscription"
-        
+
       }
     },
       "gmail":{
-    "credentials": {
-
-      },
-      "subscriptionConfiguration" :{
-
-      }
+        "credentials": {
+          "authUrl": "https://dashdesk.azurewebsites.net/auth/gmail",
+          "clientID": "174293665341-aii1tth8tv3r706222ang4bfqajgma2f.apps.googleusercontent.com",
+          "clientSecret": "tjD2bkDxvEhy-AGTxYRAqiGE",
+          "redirectUri": "http://dashdesk.azurewebsites.net/calback/gmail/",
+          "scopes": ['https://www.googleapis.com/auth/gmail.readonly']
+          },
+          "subscriptionConfiguration" : { }
     },
     "skype" : {
       "credentials": {

@@ -1,6 +1,12 @@
 // @author: bigkevzs
 var clientCookies =  {
 
+    toCookieString: function (data) {
+         return JSON.stringify(data)
+                            .replace(/:/,"=")
+                            .replace(/,/,";");
+    },
+
     // @note: keys dont have spaces or special characters .
     parseCookieString: function (cookieStr) {
         var raw = cookieStr.replace(/=|;/img,":");
