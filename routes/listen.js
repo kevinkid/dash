@@ -84,7 +84,7 @@ function processNotification(subscriptionId, resource, res) {
     db.GetSubscription(api, qs, mongoose, subscriptionId, client, function (subscriptionData) {
         if (subscriptionData) {
             
-                if(CredViablitityCheck()){
+                if(CredViablitityCheck()) {
 
                     api.getData(
                         '/beta/' + resource, subscriptionData.accessToken,

@@ -64,7 +64,6 @@ app.use('/', login);
 app.use('/listen', listen);
 app.use('/message', message);
 
-
 // Db config 
 var DBoptions = {
     server: { socketOptions: { keepAlive: 500000, connectTimeoutMS: 50000, auto_reconnect: true } }, 
