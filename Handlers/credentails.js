@@ -1,5 +1,5 @@
 // @desc - Renew credentails and check if its past the date time .
-var db = require('./dbHelper');
+var db = require('./database');
 var mongoose = require('mongoose');
 var client = require("../Handlers/client.js");
 var moment = require('moment');

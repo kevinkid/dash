@@ -3,22 +3,43 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <title></title>
         <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/fabric.min.css">
         <link rel="stylesheet" href="/css/fabric.components.min.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+
+    <nav>
+        <div class="nav-logo"></div>
+        <div class="logo-dash"></div>
+    </nav>
+    
         <h1 class="ms-font-su">Welcome , </h1>
-        <p class="ms-font-xl">Please login with your Office 365 Account to start ,</p>
+        <p class="ms-font-xl">Choose an account you wish dash to connect to .</p>
+
+        <!-- [TODO: Make this page look better and add other accounts] -->
 
         <center>
-            <button class="ms-Button ms-Button--hero" onclick="location.href='/signin';">
+
+            <button class="ms-Button ms-Button--hero" onclick="location.href='/signin/outlook';">
                 <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--person"></i></span>
                 <span class="ms-Button-label">Sign in with a work or school account</span>
                 <span class="ms-Button-description">Sign in with a work or school account</span>
             </button>
-
+            <br>
+            <button id="gmail-btn" class="gmail-btn"></button>
+            <br>
+            <button id="outlook-btn" class="outlook-btn"></button>
+            <br>
+            <button id="skype-btn" class="skype-btn"></button>
+            <br>
+            <button id="slack-btn" class="slack-btn"></button>
+            <br>
+            <button id="twitter-btn" class="twitter-btn"></button>
+            <br>
+            <button id="yammer-btn" class="yammer-btn"></button>
+            <br>
             <!--<p class="ms-font-xl">After you sign in, the application gets an access token with permission to Read user mail. Finally, it uses the access token to get a subscription with the following characteristics.</p>
             <div class="ms-Table">
                 <div class="ms-Table-row">
@@ -32,5 +53,11 @@
                 </div>
             </div>-->
         </center>
+        <script type="text/javascript"  src="./js/cookies.js"> </script>
+        <script type="text/javascript"  src="./js/browser.js"> </script>
+
+    <!-- [reload script] -->
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <!-- [reload script] -->
     </body>
 </html>
