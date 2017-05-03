@@ -15,9 +15,8 @@ module.exports = {
                 console.dir("Error quering database. ");
             }
         });
-
     },
-        
+     
     InstallClient : function (mongoose, data, id, token, client, callback) {
         var newClient = new client({
             subscriptionId: id,

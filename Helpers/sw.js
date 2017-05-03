@@ -1,6 +1,6 @@
 // var serviceWorker = require('node-service-worker');
 var moment = require('moment');
-var db = require('./dbHelper');
+var db = require('./database');
 
 var sw = {
 

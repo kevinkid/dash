@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <title></title>
         <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/fabric.min.css">
         <link rel="stylesheet" href="/css/fabric.components.min.css">
@@ -12,8 +11,10 @@
         <h1 class="ms-font-su">Welcome , </h1>
         <p class="ms-font-xl">Please login with your Office 365 Account to start ,</p>
 
+        <!-- [TODO: Make this page look better and add other accounts] -->
+
         <center>
-            <button class="ms-Button ms-Button--hero" onclick="location.href='/signin';">
+            <button class="ms-Button ms-Button--hero" onclick="location.href='/signin/outlook';">
                 <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--person"></i></span>
                 <span class="ms-Button-label">Sign in with a work or school account</span>
                 <span class="ms-Button-description">Sign in with a work or school account</span>
@@ -32,5 +33,7 @@
                 </div>
             </div>-->
         </center>
+        <script type="text/javascript"  src="./js/cookies.js"> </script>
+        <script type="text/javascript"  src="./js/browser.js"> </script>
     </body>
 </html>
